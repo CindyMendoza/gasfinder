@@ -1,10 +1,20 @@
 'use strict';
 
-const searchItem = () => {
-
+const searchItem = (data) => {
+  const box = $('<div class="box"></div>');
+  const dName = $('<p>'+data.name+'</p>');
+  const dAddress = $('<p>'+data.address+'</p>');
+  const dDistrict = $('<p>'+data.district+'</p');
+  box.append(dName);
+  box.append(dAddress);
+  box.append(dDistrict);
+  return box;
 }
 const reRender = (x,y) => {
   x.empty();
+  y.forEach((elemento)=>{
+    x.append(searchItem(elemento));
+  });
 
 }
 const Search = (update) => {
@@ -13,9 +23,10 @@ const Search = (update) => {
   const searchItemSection = $('<section class="searchItemSection"></section>');
   searchSection.append(input);
   searchSection.append(searchItemSection);
-  input.on('keyup',_=>{
-    reRender(searchItemSection,filterByDistrict(state.stations,input.val()));
-      console.log(input.val());
+  input.on('keyup',(e)=>{
+    const find = filterByDistrict(state.stations,input.val());
+    reRender(searchItemSection,find);
+    console.log(find);
   });
   return searchSection;
 }
